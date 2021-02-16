@@ -26,7 +26,7 @@ This container was built using the [addNarrData](https://github.com/geomarker-io
 ## geomarker data
 
 - Daily weather data was downloaded from [NARR](https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/north-american-regional-reanalysis-narr). 
-- NARR data is stored as an [fst](https://github.com/fstpackage/fst) file at s3://geomarker/narr/narr.fst.
+- NARR data is stored as an [fst](https://github.com/fstpackage/fst) file at [s3://geomarker/narr/narr.fst](s3://geomarker/narr/narr.fst).
 
 ## DeGAUSS details
 
