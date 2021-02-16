@@ -2,7 +2,7 @@
 
 > short description of geomarker
 
-[![Docker Build Status](https://img.shields.io/docker/automated/degauss/narr)](https://hub.docker.com/repository/docker/degauss/narr/tags
+[![Docker Build Status](https://img.shields.io/docker/automated/degauss/narr)](https://hub.docker.com/repository/docker/degauss/narr/tags)
 [![GitHub Latest Tag](https://img.shields.io/github/v/tag/degauss-org/narr)](https://github.com/degauss-org/narr/releases)
 
 ## DeGAUSS example call
@@ -17,7 +17,7 @@ will produce `my_address_file_geocoded_narr_v0.1.csv` with an added column named
 
 ## narr.fst
 
-To use this container, the user must have [narr.fst](s3://geomarker/narr/narr.fst) in their working directory. If narr.fst is not present, the user will be prompted to download it. The file is large file to download (> 22 GB), but will only need to be done once per user and computer.
+To use this container, the user must have [`narr.fst`](s3://geomarker/narr/narr.fst) in their working directory. If `narr.fst` is not present, the user will be prompted to download it. The file is large file to download (> 22 GB), but will only need to be done once per user and computer.
 
 ## geomarker methods
 
