@@ -1,6 +1,6 @@
 # narr <a href='https://degauss-org.github.io/DeGAUSS/'><img src='https://github.com/degauss-org/degauss_template/blob/master/DeGAUSS_hex.png' align='right' height='138.5' /></a>
 
-> short description of geomarker
+> add NARR weather variables to geocoded data
 
 [![Docker Build Status](https://img.shields.io/docker/automated/degauss/narr)](https://hub.docker.com/repository/docker/degauss/narr/tags)
 [![GitHub Latest Tag](https://img.shields.io/github/v/tag/degauss-org/narr)](https://github.com/degauss-org/narr/releases)
