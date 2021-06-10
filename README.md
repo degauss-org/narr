@@ -10,10 +10,10 @@
 If `my_address_file_geocoded.csv` is a file in the current working directory with coordinate columns named `lat` and `lon` and date columns named `start_date` and `end_date`, then
 
 ```sh
-docker run --rm -v $PWD:/tmp degauss/narr:0.1 my_address_file_geocoded.csv
+docker run --rm -v $PWD:/tmp degauss/narr:0.2 my_address_file_geocoded.csv
 ```
 
-will produce `my_address_file_geocoded_narr_v0.1.csv` with an added column named narr.
+will produce `my_address_file_geocoded_narr_v0.2.csv` with an added column named narr.
 
 ## narr.fst
 
