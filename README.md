@@ -10,18 +10,29 @@
 If `my_address_file_geocoded.csv` is a file in the current working directory with coordinate columns named `lat` and `lon` and date columns named `start_date` and `end_date`, then
 
 ```sh
-docker run --rm -v $PWD:/tmp degauss/narr:0.1 my_address_file_geocoded.csv
+docker run --rm -v $PWD:/tmp degauss/narr:0.2 my_address_file_geocoded.csv
 ```
 
-will produce `my_address_file_geocoded_narr_v0.1.csv` with an added column named narr.
+will produce `my_address_file_geocoded_narr_v0.2.csv` with an added columns named `air.2m` and `rhum.2m`.
 
-## narr.fst
+Only air temperature and humidity are added by default. To add all NARR variables, append `--all` to the end of the docker call above. 
 
-To use this container, the user must have [`narr.fst`](s3://geomarker/narr/narr.fst) in their working directory. If `narr.fst` is not present, the user will be prompted to download it. The file is large file to download (> 22 GB), but will only need to be done once per user and computer.
+NARR Data Dictionary
+
+| Variable Name | Description                     |
+|:--------------|:--------------------------------|
+| **air.2m**        | Air Temperature at 2m           |
+| **rhum.2m**       | Humidity at 2m                  |
+| hpbl          | Planetary Boundary Layer Height |
+| vis           | Visibility                      |
+| uwnd.10m      | U Wind Speed at 10m             |
+| vwnd.10m      | V Wind Speed at 10m             |
+| prate         | Precipitation Rate              |
+| pres.sfc      | Surface Pressure                |
 
 ## geomarker methods
 
-This container was built using the [addNarrData](https://github.com/geomarker-io/addNarrData) package. 
+This container was built using the [addNarrData](https://github.com/geomarker-io/addNarrData) package.
 
 ## geomarker data
 

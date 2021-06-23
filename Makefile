@@ -11,6 +11,9 @@ build:
 test:
 	docker run --rm -v "${PWD}/test":/tmp $(IMAGE) my_address_file_geocoded.csv
 
+test2:
+	docker run --rm -v "${PWD}/test":/tmp $(IMAGE) my_address_file_geocoded.csv --all
+
 shell:
 	docker run --rm -it --entrypoint=/bin/bash -v "${PWD}/test":/tmp $(IMAGE)
 
