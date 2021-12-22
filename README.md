@@ -2,7 +2,6 @@
 
 > add NARR weather variables to geocoded data
 
-[![Docker Build Status](https://img.shields.io/docker/automated/degauss/narr)](https://hub.docker.com/repository/docker/degauss/narr/tags)
 [![GitHub Latest Tag](https://img.shields.io/github/v/tag/degauss-org/narr)](https://github.com/degauss-org/narr/releases)
 
 ## DeGAUSS example call
@@ -10,7 +9,7 @@
 If `my_address_file_geocoded.csv` is a file in the current working directory with coordinate columns named `lat` and `lon` and date columns named `start_date` and `end_date`, then
 
 ```sh
-docker run --rm -v $PWD:/tmp degauss/narr:0.2 my_address_file_geocoded.csv
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/narr:0.2 my_address_file_geocoded.csv
 ```
 
 will produce `my_address_file_geocoded_narr_v0.2.csv` with an added columns named `air.2m` and `rhum.2m`.
