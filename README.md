@@ -1,44 +1,52 @@
-# narr <a href='https://degauss-org.github.io/DeGAUSS/'><img src='https://github.com/degauss-org/degauss_template/blob/master/DeGAUSS_hex.png' align='right' height='138.5' /></a>
+# narr <a href='https://degauss.org'><img src='https://github.com/degauss-org/degauss_hex_logo/raw/main/PNG/degauss_hex.png' align='right' height='138.5' /></a>
 
-> add NARR weather variables to geocoded data
+[![](https://img.shields.io/github/v/release/degauss-org/narr?color=469FC2&label=version&sort=semver)](https://github.com/degauss-org/narr/releases)
+[![container build status](https://github.com/degauss-org/narr/workflows/build-deploy-release/badge.svg)](https://github.com/degauss-org/narr/actions/workflows/build-deploy-release.yaml)
 
-[![GitHub Latest Tag](https://img.shields.io/github/v/tag/degauss-org/narr)](https://github.com/degauss-org/narr/releases)
+## Using
 
-## DeGAUSS example call
-
-If `my_address_file_geocoded.csv` is a file in the current working directory with coordinate columns named `lat` and `lon` and date columns named `start_date` and `end_date`, then
+If `my_address_file_geocoded.csv` is a file in the current working directory with coordinate columns named `lat`, `lon`, `start_date`, and `end_date` then the [DeGAUSS command](https://degauss.org/using_degauss.html#DeGAUSS_Commands):
 
 ```sh
-docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/narr:0.2 my_address_file_geocoded.csv
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/narr:0.3.0 my_address_file_geocoded.csv
 ```
 
-will produce `my_address_file_geocoded_narr_v0.2.csv` with an added columns named `air.2m` and `rhum.2m`.
+will produce `my_address_file_geocoded_narr_0.3.0.csv` with added columns:
 
-Only air temperature and humidity are added by default. To add all NARR variables, append `--all` to the end of the docker call above. 
+- **`air.2m`**: air temperature at 2m
+- **`rhum.2m`**: humidity at 2m
 
-NARR Data Dictionary
+### Optional Argument
 
-| Variable Name | Description                     |
-|:--------------|:--------------------------------|
-| **air.2m**        | Air Temperature at 2m           |
-| **rhum.2m**       | Humidity at 2m                  |
-| hpbl          | Planetary Boundary Layer Height |
-| vis           | Visibility                      |
-| uwnd.10m      | U Wind Speed at 10m             |
-| vwnd.10m      | V Wind Speed at 10m             |
-| prate         | Precipitation Rate              |
-| pres.sfc      | Surface Pressure                |
+By default, only `air.2m` and `rhum.2m` are returned. Using the `--all` flag as shown below
 
-## geomarker methods
+```sh
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/narr:0.3.0 my_address_file_geocoded.csv --all
+```
 
-This container was built using the [addNarrData](https://github.com/geomarker-io/addNarrData) package.
+will also return the following NARR variables.
 
-## geomarker data
+- **`hpbl`**: planetary boundary layer height
+- **`vis`**: visibility
+- **`uwnd.10m`**: U wind speed at 10mt
+- **`vwnd.10m`**: V wind speed at 10m
+- **`prate`**: precipitation rate
+- **`pres.sfc`**: surface pressure
 
-- Daily weather data was downloaded from [NARR](https://www.ncdc.noaa.gov/data-access/model-data/model-datasets/north-american-regional-reanalysis-narr). 
-- NARR data is stored as an [fst](https://github.com/fstpackage/fst) file at [s3://geomarker/narr/narr.fst](s3://geomarker/narr/narr.fst).
+### Docker RAM requirements
+
+If this container errors unexpectedly, you may need to allocate more RAM to Docker. Please see the [troubleshooting guide](https://degauss.org/troubleshooting.html#Insufficient_Memory) for more information.
+
+## Geomarker Methods
+
+This container was built using the [addNarrData](https://geomarker.io/addNarrData/) package.
+
+## Geomarker Data
+
+- Daily weather data was downloaded from [NARR](https://www.ncei.noaa.gov/products/weather-climate-models/north-american-regional).
+- NARR data is stored as [fst](https://github.com/fstpackage/fst) files at s3://geomarker/narr/narr_chunk_fst/.
 - Detailed information for how data was converted to chunk files can be found [here](https://github.com/geomarker-io/narr_raster_to_fst).
 
-## DeGAUSS details
+## DeGAUSS Details
 
 For detailed documentation on DeGAUSS, including general usage and installation, please see the [DeGAUSS homepage](https://degauss.org).
