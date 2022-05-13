@@ -8,10 +8,10 @@
 If `my_address_file_geocoded.csv` is a file in the current working directory with coordinate columns named `lat`, `lon`, `start_date`, and `end_date` then the [DeGAUSS command](https://degauss.org/using_degauss.html#DeGAUSS_Commands):
 
 ```sh
-docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/narr:0.3.0 my_address_file_geocoded.csv
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/narr:0.4.0 my_address_file_geocoded.csv
 ```
 
-will produce `my_address_file_geocoded_narr_0.3.0.csv` with added columns:
+will produce `my_address_file_geocoded_narr_0.4.0.csv` with added columns:
 
 - **`air.2m`**: air temperature at 2m
 - **`rhum.2m`**: humidity at 2m
@@ -21,7 +21,7 @@ will produce `my_address_file_geocoded_narr_0.3.0.csv` with added columns:
 By default, only `air.2m` and `rhum.2m` are returned. Using the `--all` flag as shown below
 
 ```sh
-docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/narr:0.3.0 my_address_file_geocoded.csv --all
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/narr:0.4.0 my_address_file_geocoded.csv --all
 ```
 
 will also return the following NARR variables.

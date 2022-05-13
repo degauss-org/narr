@@ -2,7 +2,7 @@ FROM rocker/r-ver:4.0.5
 
 # DeGAUSS container metadata
 ENV degauss_name="narr"
-ENV degauss_version="0.3.0"
+ENV degauss_version="0.4.0"
 ENV degauss_description="daily weather data (temperature, humidity, etc)"
 ENV degauss_argument="optional --all flag to return all narr variables [default: no_flag_returns_only_temp_and_humidity]"
 
