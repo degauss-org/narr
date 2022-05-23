@@ -18,15 +18,15 @@ will produce `my_address_file_geocoded_narr_0.4.0_weather.csv` with added column
 
 ### Optional Argument
 
-Users can supply an optional argument to select which NARR variables are returned. 
+Users can supply an optional argument to select which NARR variables are returned: 
 
-| Argument        | Variables Returned     | Varaible Definitions |
+| Argument        | Variables Returned     | Variable Definitions |
 |--------------|-----------|------------|
 | `weather` (default) | `air.2m` <br> `rhum.2m`      | air temperature at 2m <br> humidity at 2m       |
 | `wind`      | `uwnd.10m` <br> `vwnd.10m`  | U wind speed at 10m <br>  V wind speed at 10m     |
 | `atmosphere`      | `hpbl` <br> `vis`  | planetary boundary layer height <br> visibility    |
 | `pratepres`      | `prate` <br> `pres.sfc`  | precipitation rate <br> surface pressure    |
-| `none`      | none  |  only NARR cell ID is returned  |
+| `none`      | `narr_cell`  |  NARR raster cell number |
 
 For example, 
 
@@ -34,7 +34,13 @@ For example,
 docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/narr:0.4.0 my_address_file_geocoded.csv wind 
 ```
 
-will return **`uwnd.10m`** and **`vwnd.10m`**. 
+will return `uwnd.10m` and `vwnd.10m`. 
+
+This argument can also be used to only return the `narr_cell`, which is the NARR raster cell number, to be used for later NARR data lookups:
+
+```sh
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/narr:0.4.0 my_address_file_geocoded.csv none
+```
 
 ### Docker RAM requirements
 
