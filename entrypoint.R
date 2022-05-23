@@ -11,15 +11,13 @@ withr::with_message_sink("/dev/null", library(addNarrData))
 
 doc <- '
       Usage:
-      narr.R <filename>
-      narr.R <filename> --all
-      narr.R <filename> --none
+      narr.R <filename> [<vars>]
       narr.R (-h | --help)
 
       Options:
       -h --help   Show this screen
-      --all   Returns all narr variables
-      --none   Returns only narr cell identifiers but no narr variables
+      filename  name of csv file
+      vars   weather, wind, atmosphere, pratepres, or none (see readme for more info)
       '
 
 opt <- docopt::docopt(doc)
@@ -29,14 +27,21 @@ opt <- docopt::docopt(doc)
 
 message("reading input file...")
 d <- dht::read_lat_lon_csv(opt$filename)
-
 dht::check_for_column(d, "lat", d$lat)
 dht::check_for_column(d, "lon", d$lon)
 
-if (opt$none) {
-  d_out <- addNarrData::get_narr_cell_numbers(d)
-  arg_file_name <- "none"
+if (is.null(opt$vars)) {
+  opt$vars <- "weather"
+  cli::cli_alert_warning("Blank argument for NARR variable selection. Will return air.2m and rhum.2m. Please see {.url https://degauss.org/narr/} for more information about the NARR variable argument.")
+}
 
+if (! opt$vars %in% c("weather", "wind", "atmosphere", "pratepres", "none")) {
+  opt$vars <- "weather"
+  cli::cli_alert_warning("Invalid argument for NARR variable selection. Will return air.2m and rhum.2m. Please see {.url https://degauss.org/narr/} for more information about the NARR variable argument.")
+}
+
+if (opt$vars == "none") {
+  d_out <- addNarrData::get_narr_cell_numbers(d)
 } else {
   dht::check_for_column(d, 'start_date', d$start_date)
   dht::check_for_column(d, 'end_date', d$end_date)
@@ -44,33 +49,21 @@ if (opt$none) {
   d$start_date <- dht::check_dates(d$start_date)
   d$end_date <- dht::check_dates(d$end_date)
 
-  ## add code here to calculate geomarkers
+  narr_variables = case_when(
+    opt$vars == "weather" ~ c("air.2m", "rhum.2m"),
+    opt$vars == "wind" ~ c("uwnd.10m", "vwnd.10m"),
+    opt$vars == "atmosphere" ~ c("hpbl", "vis"),
+    opt$vars == "pratepres" ~ c("prate", "pres.sfc")
+  )
+
   message('appending NARR variables based on grid cell and date range...')
-  if (!opt$all) {
-    d_out <- addNarrData::get_narr_data(d, narr_variables = c("air.2m", "rhum.2m"), confirm = F)
-    arg_file_name <- ""
-  } else {
-    cli::cli_alert_warning("Due to their size, the narr data files will be downloaded and processed in 4 groups of 2,
-                         which will be reflected in the progress messages below.")
-    d_out1 <- addNarrData::get_narr_data(d, narr_variables = c("hpbl", "vis"), confirm = F)
-    d_out2 <- addNarrData::get_narr_data(d, narr_variables = c("uwnd.10m", "vwnd.10m"), confirm = F)
-    d_out3 <- addNarrData::get_narr_data(d, narr_variables = c("air.2m", "rhum.2m"), confirm = F)
-    d_out4 <- addNarrData::get_narr_data(d, narr_variables = c("prate", "pres.sfc"), confirm = F)
-
-    suppressMessages(
-      d_out <- left_join(d_out1, d_out2) %>%
-        left_join(d_out3) %>%
-        left_join(d_out4) %>%
-        select(-.row)
-    )
-
-    arg_file_name <- "all_vars"
-  }
+  d_out <- addNarrData::get_narr_data(d, narr_variables = narr_variables, confirm = F)
+  d_out <- dplyr::select(d_out, -.row)
 }
 
 ## merge back on .row after unnesting .rows into .row
 dht::write_geomarker_file(d = d_out,
                           filename = opt$filename,
-                          argument = arg_file_name)
+                          argument = opt$vars)
 
 

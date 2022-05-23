@@ -11,27 +11,30 @@ If `my_address_file_geocoded.csv` is a file in the current working directory wit
 docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/narr:0.4.0 my_address_file_geocoded.csv
 ```
 
-will produce `my_address_file_geocoded_narr_0.4.0.csv` with added columns:
+will produce `my_address_file_geocoded_narr_0.4.0_weather.csv` with added columns:
 
 - **`air.2m`**: air temperature at 2m
 - **`rhum.2m`**: humidity at 2m
 
 ### Optional Argument
 
-By default, only `air.2m` and `rhum.2m` are returned. Using the `--all` flag as shown below
+Users can supply an optional argument to select which NARR variables are returned. 
+
+| Argument        | Variables Returned     | Varaible Definitions |
+|--------------|-----------|------------|
+| `weather` (default) | `air.2m` <br> `rhum.2m`      | air temperature at 2m <br> humidity at 2m       |
+| `wind`      | `uwnd.10m` <br> `vwnd.10m`  | U wind speed at 10m <br>  V wind speed at 10m     |
+| `atmosphere`      | `hpbl` <br> `vis`  | planetary boundary layer height <br> visibility    |
+| `pratepres`      | `prate` <br> `pres.sfc`  | precipitation rate <br> surface pressure    |
+| `none`      | none  |  only NARR cell ID is returned  |
+
+For example, 
 
 ```sh
-docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/narr:0.4.0 my_address_file_geocoded.csv --all
+docker run --rm -v $PWD:/tmp ghcr.io/degauss-org/narr:0.4.0 my_address_file_geocoded.csv wind 
 ```
 
-will also return the following NARR variables.
-
-- **`hpbl`**: planetary boundary layer height
-- **`vis`**: visibility
-- **`uwnd.10m`**: U wind speed at 10mt
-- **`vwnd.10m`**: V wind speed at 10m
-- **`prate`**: precipitation rate
-- **`pres.sfc`**: surface pressure
+will return **`uwnd.10m`** and **`vwnd.10m`**. 
 
 ### Docker RAM requirements
 
