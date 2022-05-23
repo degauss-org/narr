@@ -2,9 +2,9 @@ FROM rocker/r-ver:4.0.5
 
 # DeGAUSS container metadata
 ENV degauss_name="narr"
-ENV degauss_version="0.3.0"
+ENV degauss_version="0.4.0"
 ENV degauss_description="daily weather data (temperature, humidity, etc)"
-ENV degauss_argument="optional --all flag to return all narr variables [default: no_flag_returns_only_temp_and_humidity]"
+ENV degauss_argument="NARR variables to be returned (weather, wind, atmosphere, pratepres, or none) [default: weather]"
 
 # add OCI labels based on environment variables too
 LABEL "org.degauss.name"="${degauss_name}"

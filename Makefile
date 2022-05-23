@@ -5,7 +5,10 @@ build:
 
 test:
 	docker run --rm -v "${PWD}/test":/tmp narr my_address_file_geocoded.csv
-	docker run --rm -v "${PWD}/test":/tmp narr my_address_file_geocoded.csv --all
+	docker run --rm -v "${PWD}/test":/tmp narr my_address_file_geocoded.csv wind
+	docker run --rm -v "${PWD}/test":/tmp narr my_address_file_geocoded.csv atmosphere
+	docker run --rm -v "${PWD}/test":/tmp narr my_address_file_geocoded.csv pratepres
+	docker run --rm -v "${PWD}/test":/tmp narr my_address_file_geocoded.csv none
 
 shell:
 	docker run --rm -it --entrypoint=/bin/bash -v "${PWD}/test":/tmp narr
