@@ -26,6 +26,9 @@ RUN apt-get update \
 
 COPY renv.lock .
 
+# Disable renv cache
+ENV RENV_CONFIG_CACHE_ENABLED FALSE
+
 RUN R --quiet -e "renv::restore(repos = c(CRAN = 'https://packagemanager.posit.co/cran/__linux__/jammy/latest'))"
 
 COPY entrypoint.R .
