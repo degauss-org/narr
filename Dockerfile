@@ -26,8 +26,14 @@ RUN apt-get update \
     libcurl4-openssl-dev \
     libssl-dev \
     libxml2-dev \
-    zlib1g-dev \
+    zlib1g-dev \    
+    locales \
+    && locale-gen en_US.UTF-8 \
     && apt-get clean
+
+# Set locale environment variables
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
 
 COPY renv.lock .
 
