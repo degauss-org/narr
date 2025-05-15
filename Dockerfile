@@ -22,6 +22,11 @@ RUN apt-get update \
     libgeos-dev \
     libudunits2-dev \
     libproj-dev \
+    build-essential \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev \
+    zlib1g-dev
     && apt-get clean
 
 COPY renv.lock .
