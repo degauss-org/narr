@@ -22,23 +22,9 @@ RUN apt-get update \
     libgeos-dev \
     libudunits2-dev \
     libproj-dev \
-    build-essential \
-    libcurl4-openssl-dev \
-    libssl-dev \
-    libxml2-dev \
-    zlib1g-dev \    
-    locales \
-    && locale-gen en_US.UTF-8 \
     && apt-get clean
 
-# Set locale environment variables
-ENV LANG en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
-
 COPY renv.lock .
-
-# Disable renv cache
-ENV RENV_CONFIG_CACHE_ENABLED FALSE
 
 RUN R --quiet -e "renv::restore(repos = c(CRAN = 'https://packagemanager.posit.co/cran/__linux__/jammy/latest'))"
 

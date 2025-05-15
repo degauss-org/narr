@@ -725,7 +725,7 @@
       "Package": "stringfish",
       "Version": "0.16.0",
       "Source": "Repository",
-      "Repository": "CRAN",
+      "Repository": "https://cloud.r-project.org",
       "Requirements": [
         "R",
         "Rcpp",
